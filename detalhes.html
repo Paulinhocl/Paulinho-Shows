@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Evento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Detalhes do Evento</h1>
+    </header>
+    <main>
+        <section class="event-details">
+            <h2>Show Sertanejo</h2>
+            <p>Data: 21 de Agosto, 2024</p>
+            <p>Horário: 21:30</p>
+            <p>Local: Ginásio Municipal</p>
+            <p>Descrição: Show imperdível com as maiores Duplas Sertanejas do momento.</p>
+            <p>Preço: R$ 80,00</p>
+            <label for="ticket-quantity">Quantidade de ingressos:</label>
+            <input type="number" id="ticket-quantity" value="1" min="1">
+            <p>Total: R$ <span id="total-price">80.00</span></p>
+            <button type="button" onclick="alert('Ingressos comprados!')">Comprar</button>
+        </section>
+    </main>
+    <script src="script.js"></script>
+    
+</body>
+</html>

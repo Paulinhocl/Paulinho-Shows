@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Evento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Detalhes do Evento</h1>
+    </header>
+    <main>
+        <section class="event-details">
+            <h2>Show Pagode</h2>
+            <p>Data: 12 de Outubro, 2024</p>
+            <p>Horário: 20:00</p>
+            <p>Local: Casa de Shows Paulão</p>
+            <p>Descrição: O melhor do Pagode você encontra aqui.</p>
+            <p>Preço: R$ 55,00</p>
+            <label for="ticket-quantity">Quantidade de ingressos:</label>
+            <input type="number" id="ticket-quantity" value="1" min="1">
+            <p>Total: R$ <span id="total-price">55.00</span></p>
+            <button type="button" onclick="alert('Ingressos comprados!')">Comprar</button>
+        </section>
+    </main>
+    <script src="scriptp.js"></script>
+    
+</body>
+</html>
