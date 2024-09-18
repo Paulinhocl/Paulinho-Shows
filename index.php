@@ -1,4 +1,11 @@
-<?php require_once("ConnectDB.php"); ?>
+<?php require_once("ConnectDB.php"); 
+
+    require("Connectdb.php");
+
+    $sql2 = "SELECT * FROM `eventos` ";
+    $result = mysqli_query($ConnectDB, $sql2);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,6 +29,7 @@
     </header>
     <main>
         <section class="event-list">
+            <?php while($repete = mysqli_fetch_array($result)) { ?>
             <article class="event-item">
                 <h2>Show Sertanejo</h2>
                 <p>Data: 21 de Agosto, 2024</p>
@@ -29,6 +37,8 @@
                 <p>Preço: R$ 80,00</p>
                 <a href="detalhes.html" class="details-button">Ver Detalhes</a> 
             </article>   
+            <?php } ?> 
+
         </section>
         <section class="event-list">
             <article class="event-item">
