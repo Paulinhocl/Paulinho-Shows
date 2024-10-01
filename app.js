@@ -1,94 +1,51 @@
-const eventoForm = document.getElementById('eventoForm');
-const feedbackDiv = document.getElementById('feedback');
-const eventosTable = document.getElementById('eventosTable').getElementsByTagName('tbody')[0];
+const express = require('express');
+const path = require('path');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const authController = require('authController');
 
-function showFeedback(message, success = true) {
-    feedbackDiv.innerHTML = `<div class="alert ${success ? 'alert-success' : 'alert-danger'}">${message}</div>`;
-    setTimeout(() => {
-        feedbackDiv.innerHTML = '';
-    }, 3000);
-}
+const app = express();
 
-async function loadEventos() {
-    try {
-        const response = await fetch('http://localhost:3000/api/eventos');
-        const eventos = await response.json();
-        eventosTable.innerHTML = '';
-        eventos.forEach(evento => {
-            const row = eventosTable.insertRow();
-            row.innerHTML = `
-                <td>${evento.id}</td>
-                <td>${evento.nome}</td>
-                <td>${new Date(evento.data).toLocaleDateString()}</td>
-                <td>${evento.local}</td>
-                <td>${evento.preco.toFixed(2)}</td>
-                <td>${evento.ingressos_disponiveis}</td>
-                <td>
-                    <button class="btn btn-warning btn-sm" onclick="editEvento(${evento.id})">Editar</button>
-                    <button class="btn btn-danger btn-sm" onclick="deleteEvento(${evento.id})">Excluir</button>
-                </td>
-            `;
-        });
-    } catch (error) {
-        showFeedback('Erro ao carregar eventos', false);
-    }
-}
+app.use(session({
+    secret: 'paulinho',
+    resave: false,
+    saveUninitialized: true
+}));
 
-async function createEvento(event) {
-    event.preventDefault();
-    
-    const nome = document.getElementById('nome').value;
-    const data = document.getElementById('data').value;
-    const local = document.getElementById('local').value;
-    const preco = document.getElementById('preco').value;
-    const descricao = document.getElementById('descricao').value;
-    const ingressos = document.getElementById('ingressos').value;
+app.use(bodyParser.urlencoded({ extended: true }));
 
-    if (!nome || !data || !local || !preco || !ingressos) {
-        showFeedback('Preencha todos os campos obrigatórios', false);
-        return;
-    }
+app.use(express.static(path.join(__dirname, 'public')));
 
-    const evento = { nome, data, local, preco, descricao, ingressos_disponiveis: ingressos };
+app.get('login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'login.html'));
+});
 
-    try {
-        const response = await fetch('http://localhost:3000/api/evento', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(evento)
-        });
+app.post('login', authController.login);
 
-        if (response.ok) {
-            showFeedback('Evento cadastrado com sucesso');
-            eventoForm.reset();
-            loadEventos();
-        } else {
-            showFeedback('Erro ao cadastrar evento', false);
-        }
-    } catch (error) {
-        showFeedback('Erro ao conectar ao servidor', false);
-    }
-}
+app.use(authController.ensureAuthenticated);
 
-async function deleteEvento(id) {
-    if (confirm('Tem certeza que deseja excluir este evento?')) {
-        try {
-            const response = await fetch(`http://localhost:3000/api/evento/${id}`, {
-                method: 'DELETE'
-            });
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'index.html'));
+});
 
-            if (response.ok) {
-                showFeedback('Evento excluído com sucesso');
-                loadEventos();
-            } else {
-                showFeedback('Erro ao excluir evento', false);
-            }
-        } catch (error) {
-            showFeedback('Erro ao conectar ao servidor', false);
-        }
-    }
-}
+app.get('/event-details.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'event-details.html'));
+});
 
-loadEventos();
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
 
-eventoForm.addEventListener('submit', createEvento);
+const express = require('express');
+const app = express();
+const rotaEventos = require('./rotaEventos');
+
+app.use(express.json()); 
+
+app.use('/api', rotaEventos);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
