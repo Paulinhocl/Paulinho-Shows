@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Eventos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Cadastro de Eventos</h1>
+        
+        <form id="eventoForm">
+            <div class="form-group">
+                <label for="nome">Nome do Evento</label>
+                <input type="text" id="nome" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="data">Data</label>
+                <input type="date" id="data" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="local">Local</label>
+                <input type="text" id="local" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="preco">Preço</label>
+                <input type="number" id="preco" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="descricao">Descrição</label>
+                <textarea id="descricao" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="ingressos">Ingressos Disponíveis</label>
+                <input type="number" id="ingressos" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Cadastrar Evento</button>
+        </form>
+
+        <div id="feedback" class="mt-4"></div>
+
+        <h2 class="my-4">Lista de Eventos</h2>
+        <table class="table table-bordered" id="eventosTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Data</th>
+                    <th>Local</th>
+                    <th>Preço</th>
+                    <th>Ingressos Disponíveis</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <main>
+                    <section class="event-list">
+                        <article class="event-item">
+                            <h2>Show Sertanejo</h2>
+                            <p>Data: 21 de Agosto, 2024</p>
+                            <p>Local: Ginásio Municipal Seu Pedro</p>
+                            <p>Preço: R$ 80,00</p>
+                            <a href="detalhes.html" class="details-button">Ver Detalhes</a> 
+                        </article>   
+                    </section>
+                    <section class="event-list">
+                        <article class="event-item">
+                            <h2>Show Gospel</h2>
+                            <p>Data: 25 de Settembro, 2024</p>
+                            <p>Local: Ginásio Municipal São João</p>
+                            <p>Preço: R$ 20,00</p>
+                            <a href="detalhe_gospel.html" class="details-button">Ver Detalhes</a>
+                        </article>
+                    </section>
+                    <section class="event-list">
+                        <article class="event-item">
+                            <h2>Show Pagode</h2>
+                            <p>Data: 12 de Outubro, 2024</p>
+                            <p>Local: Casa de Shows Paulão</p>
+                            <p>Preço: R$ 55,00</p>
+                            <a href="pagode.html" class="details-button">Ver Detalhes</a>
+                        </article>
+                    </section>
+                </main>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
